@@ -7,16 +7,51 @@ function start() {
 	$("#fundoGame").append("<div id='amigo' class='anima3'></div>");
 
     //Principais variáveis do jogo
-	var jogo = {}
+	var jogo = {};
+    var TECLA = {
+        UP: 38,
+        DOWN: 40,
+        SPACE: 32
+    }
+    
+    jogo.pressionou = [];
+
+    //Verifica se o usuário pressionou alguma tecla	
+	$(document).keydown(function(e){
+        jogo.pressionou[e.which] = true;
+    });
+    
+    
+    $(document).keyup(function(e){
+        jogo.pressionou[e.which] = false;
+    });
+
 	//Game Loop
 	jogo.timer = setInterval(loop,30);
 	function loop(){
 	    movefundo();
+        movejogador();
     }
 
-    function movefundo() {
+    function movefundo(){
         esquerda = parseInt($("#fundoGame").css("background-position"));
         $("#fundoGame").css("background-position",esquerda-1);
+    }
+
+    function movejogador() {
+        if (jogo.pressionou[TECLA.UP]){
+            var topo = parseInt($("#jogador").css("top"));
+            $("#jogador").css("top",topo-10);
+        }
+        
+        if (jogo.pressionou[TECLA.DOWN]){  
+            var topo = parseInt($("#jogador").css("top"));
+            $("#jogador").css("top",topo+10);	
+        }
+        
+        if (jogo.pressionou[TECLA.SPACE]){
+            //Chama função Disparo	
+        }
     }
 
 }
