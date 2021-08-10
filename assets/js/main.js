@@ -42,11 +42,19 @@ function start() {
         if (jogo.pressionou[TECLA.UP]){
             var topo = parseInt($("#jogador").css("top"));
             $("#jogador").css("top",topo-10);
+
+            if (topo<=0) {
+                $("#jogador").css("top",topo+10);
+            }
         }
         
         if (jogo.pressionou[TECLA.DOWN]){  
             var topo = parseInt($("#jogador").css("top"));
-            $("#jogador").css("top",topo+10);	
+            $("#jogador").css("top",topo+10);
+
+            if (topo>=445) {
+                $("#jogador").css("top",topo-10);
+            }
         }
         
         if (jogo.pressionou[TECLA.SPACE]){
