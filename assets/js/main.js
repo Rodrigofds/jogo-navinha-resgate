@@ -323,3 +323,9 @@ function start() {
     }
 
 }
+
+function reiniciaJogo(){
+    somGameover.pause();
+    $("#fim").remove();
+    start();
+}
