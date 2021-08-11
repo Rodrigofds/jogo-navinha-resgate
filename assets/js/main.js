@@ -26,6 +26,16 @@ function start() {
     
     jogo.pressionou = [];
 
+    var somDisparo = document.getElementById("somDisparo");
+    var somExplosao = document.getElementById("somExplosao");
+    var musica = document.getElementById("musica");
+    var somGameover = document.getElementById("somGameover");
+    var somPerdido = document.getElementById("somPerdido");
+    var somResgate = document.getElementById("somResgate");
+
+    musica.addEventListener("ended", function(){ musica.currentTime = 0; musica.play(); }, false);
+    musica.play();
+
     //Verifica se o usuário pressionou alguma tecla	
 	$(document).keydown(function(e){
         jogo.pressionou[e.which] = true;
@@ -73,7 +83,7 @@ function start() {
             }
         }
         
-        if(jogo.pressionou[TECLA.SPACE]){ //Chama função Disparo
+        if(jogo.pressionou[TECLA.SPACE]){//Chama função Disparo
             disparo();
         }
 
@@ -111,6 +121,7 @@ function start() {
 
     function disparo(){
         if(podeAtirar == true){
+            somDisparo.play();
             podeAtirar = false;
             topo = parseInt($("#jogador").css("top"))
             posicaoX = parseInt($("#jogador").css("left"))
@@ -166,7 +177,7 @@ function start() {
             inimigo1Y = parseInt($("#inimigo1").css("top"));
             explosao1(inimigo1X, inimigo1Y);
             pontos += 100;
-            velocidade += 0.3;
+            velocidade += 0.2;
             $("#disparo").css("left", 950);
             posicaoY = parseInt(Math.random() * 334);
             $("#inimigo1").css("left", 694);
@@ -185,6 +196,7 @@ function start() {
 
         if(colisao5.length > 0){
             salvos++;
+            somResgate.play();
             reposicionaAmigo();
             $("#amigo").remove();
         }
@@ -193,6 +205,7 @@ function start() {
             amigoX = parseInt($("#amigo").css("left"));
             amigoY = parseInt($("#amigo").css("top"));
             explosao3(amigoX, amigoY);
+            somPerdido.play();
             perdidos++;
             $("#amigo").remove();                    
             reposicionaAmigo();
@@ -204,6 +217,7 @@ function start() {
         $("#fundoGame").append("<div id='explosao1'></div");
         $("#explosao1").css("background-image", "url(assets/img/explosao.png)");
         var div = $("#explosao1");
+        somExplosao.play();
         div.css("top", inimigo1Y);
         div.css("left", inimigo1X);
         div.animate({width: 200, opacity: 0}, "slow");
@@ -220,6 +234,7 @@ function start() {
         $("#fundoGame").append("<div id='explosao2'></div");
         $("#explosao2").css("background-image", "url(assets/img/explosao.png)");
         var div2 = $("#explosao2");
+        somExplosao.play();
         div2.css("top", inimigo2Y);
         div2.css("left", inimigo2X);
         div2.animate({width: 200, opacity: 0}, "slow");
@@ -234,6 +249,7 @@ function start() {
 
     function explosao3(amigoX, amigoY){
         $("#fundoGame").append("<div id='explosao3' class='anima4'></div");
+        somPerdido.play();
         $("#explosao3").css("top", amigoY);
         $("#explosao3").css("left", amigoX);
         var tempoExplosao3 = window.setInterval(resetaExplosao3, 1000);
@@ -274,7 +290,7 @@ function start() {
 		if(energiaAtual == 3){
 			$("#energia").css("background-image", "url(assets/img/energia3.png)");
 		}
-	
+
 		if(energiaAtual == 2){
 			$("#energia").css("background-image", "url(assets/img/energia2.png)");
 		}
