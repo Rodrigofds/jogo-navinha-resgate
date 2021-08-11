@@ -165,7 +165,8 @@ function start() {
             inimigo1X = parseInt($("#inimigo1").css("left"));
             inimigo1Y = parseInt($("#inimigo1").css("top"));
             explosao1(inimigo1X, inimigo1Y);
-            pontos = pontos + 100;
+            pontos += 100;
+            velocidade += 0.3;
             $("#disparo").css("left", 950);
             posicaoY = parseInt(Math.random() * 334);
             $("#inimigo1").css("left", 694);
@@ -176,7 +177,7 @@ function start() {
             inimigo2X = parseInt($("#inimigo2").css("left"));
             inimigo2Y = parseInt($("#inimigo2").css("top"));
             $("#inimigo2").remove();
-            pontos = pontos + 50;
+            pontos += 50;
             explosao2(inimigo2X, inimigo2Y);
             $("#disparo").css("left", 950);
             reposicionaInimigo2();
@@ -282,9 +283,11 @@ function start() {
 			$("#energia").css("background-image", "url(assets/img/energia1.png)");
 		}
 	
-		if(energiaAtual==0){
+		if(energiaAtual == 0){
             $("#energia").css("background-image", "url(assets/img/energia0.png)");	
-			//Game Over
+			
+            //Game Over
+
 		}
 	}
 
